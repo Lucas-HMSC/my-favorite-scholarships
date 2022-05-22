@@ -25,8 +25,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  max-height: 5rem;
   
-
   &__help {
     display: flex;
     flex-direction: column;
@@ -34,6 +34,10 @@ export default {
     padding: 0 1rem;
     border-right: 2px solid #eeefef;
     color: var(--blue-secondary);
+
+    span {
+      font-weight: 500;
+    }
   }
 
   &__logo {
@@ -41,7 +45,10 @@ export default {
     padding: 0 3rem;
 
     img {
+      display: block;
       max-width: 100%;
+      max-height: 3rem;
+      margin: 0 auto;
     }
   }
 
@@ -52,6 +59,10 @@ export default {
     padding: 0 1rem;
     border-left: 2px solid #eeefef;
     color: var(--blue-secondary);
+
+    span {
+      font-weight: 500;
+    }
   }
 }
 </style>
