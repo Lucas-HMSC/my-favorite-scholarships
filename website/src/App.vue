@@ -6,6 +6,7 @@
     <main>
       <RouterView />
     </main>
+    <Footer />
   </div>
 </template>
 
@@ -13,13 +14,15 @@
 import Header from '@/components/Header.vue';
 import NavBar from '@/components/NavBar.vue';
 import Breadcrumb from '@/components/Breadcrumb.vue';
+import Footer from '@/components/Footer.vue';
 
 export default {
   name: 'App',
   components: {
     Header,
     NavBar,
-    Breadcrumb
+    Breadcrumb, 
+    Footer,
   }
 }
 </script>
@@ -43,6 +46,8 @@ export default {
   --black: #1F2D30;
 
   --gray: #FBFBFB;
+
+  --white: #FFFFFF;
 
   --overlay: #1F2D30;
 }
