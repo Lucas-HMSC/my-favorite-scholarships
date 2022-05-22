@@ -26,6 +26,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   max-height: 5rem;
+  background: #FFFFFF;
   
   &__help {
     display: flex;
