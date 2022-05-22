@@ -1,6 +1,7 @@
 <template>
   <div>
     <Header />
+    <NavBar />
     <main>
       <RouterView />
     </main>
@@ -9,10 +10,13 @@
 
 <script>
 import Header from '@/components/Header.vue';
+import NavBar from '@/components/NavBar.vue';
+
 export default {
   name: 'App',
   components: {
     Header,
+    NavBar,
   }
 }
 </script>
@@ -63,5 +67,10 @@ body, button {
 
 button {
   cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 </style>
