@@ -1,8 +1,21 @@
 <template>
   <div>
-    <RouterView />
+    <Header />
+    <main>
+      <RouterView />
+    </main>
   </div>
 </template>
+
+<script>
+import Header from '@/components/Header.vue';
+export default {
+  name: 'App',
+  components: {
+    Header,
+  }
+}
+</script>
 
 <style lang="scss">
 * {
@@ -29,13 +42,13 @@
 
 @media (max-width: 720px) {
   html {
-    font-size: 87.5%; // 14px
+    font-size: 87.5%; 
   }  
 }
 
 @media (max-width: 1080px) {
   html {
-    font-size: 93.75%; // 15px
+    font-size: 93.75%; 
   }  
 }
 
