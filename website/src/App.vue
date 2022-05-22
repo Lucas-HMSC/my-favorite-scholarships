@@ -2,6 +2,7 @@
   <div>
     <Header />
     <NavBar />
+    <Breadcrumb />
     <main>
       <RouterView />
     </main>
@@ -11,12 +12,14 @@
 <script>
 import Header from '@/components/Header.vue';
 import NavBar from '@/components/NavBar.vue';
+import Breadcrumb from '@/components/Breadcrumb.vue';
 
 export default {
   name: 'App',
   components: {
     Header,
     NavBar,
+    Breadcrumb
   }
 }
 </script>
