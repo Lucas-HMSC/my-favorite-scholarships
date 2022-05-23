@@ -48,8 +48,6 @@ export default {
   --gray: #FBFBFB;
 
   --white: #FFFFFF;
-
-  --overlay: #1F2D30;
 }
 
 @media (max-width: 720px) {

@@ -10,18 +10,37 @@
       <a href="#">1º semestre de 2020</a>
     </div>
 
-    <div class="home__addbox">
+    <div class="home__addbox" @click='handleOpenModal'>
       <i class="fa-solid fa-plus"></i>
       <h2>Adicionar bolsa</h2>
       <span>Clique para adicionar bolsas de cursos do seu interesse</span>
     </div>
+
+    <Modal />
   </section>
 </template>
 
 <script>
+import Modal from '@/components/Modal.vue';
+
 export default {
   name: 'Home',
-  components: {}
+  components: {
+    Modal,
+  },
+  computed: {},
+  data: () => ({
+    scholarships: [],
+  }),
+  methods: {
+    handleOpenModal() {
+      this.$store.dispatch('setModal', true);
+    },
+  },
+  async mounted() {
+    const response = await fetch('db.json');
+    this.scholarships = await response.json();
+  },
 }
 </script>
 <style lang="scss" scoped>
