@@ -17,7 +17,27 @@
     </div>
 
     <CourseCard 
-      
+      image='https://www.tryimg.com/u/2019/04/16/anhembi-morumbi.png'
+      universityName='Anhembi Morumbi'
+      :universityScore='4.2'
+      courseName='Jornalismo'
+      kind='Presencial'
+      shift='Noite'
+      startDate='01/08/2019'
+      :fullPrice='1461.16'
+      :payment='1241.99'
+    />
+
+    <CourseCard 
+      image='https://www.tryimg.com/u/2019/04/16/anhembi-morumbi.png'
+      universityName='Anhembi Morumbi'
+      :universityScore='4.2'
+      courseName='Jornalismo'
+      kind='Presencial'
+      shift='Noite'
+      startDate='01/08/2019'
+      :fullPrice='1461.16'
+      :payment='1241.99'
     />
 
     <Modal />

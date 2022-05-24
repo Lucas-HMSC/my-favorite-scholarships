@@ -1,23 +1,31 @@
 <template>
   <section class="card">
     <div class="card__img">
-      <img src="https://www.tryimg.com/u/2019/04/16/unip.png" alt="Logo da faculdade">
+      <img :src="image" :alt="'Logo da ' + universityName">
     </div>
 
-    <p class="card__name">Unip</p>
-    <p class="card__course">Sistemas da Informação</p>
+    <p class="card__name">{{ universityName }}</p>
+    <p class="card__course">{{ courseName }}</p>
     <div class="card__stars">
-      3.8 <span></span><i class="fa-solid fa-star"></i>
+      <span class="card__score">{{ universityScore }}</span> 
+      <span><i class="fa-solid fa-star"></i></span>
+      <span><i class="fa-solid fa-star"></i></span>
+      <span><i class="fa-solid fa-star"></i></span>
+      <span><i class="fa-solid fa-star"></i></span>
+      <span><i class="fa-solid fa-star"></i></span>
     </div>
     <div class="card__divisor" />
-    <div class="card__info">
-      <p class="card__modality">Presencial <span /> Noite</p>
-      <p>Início das aulas em: 05/03/2020</p>
+    <div>
+      <p class="card__modality">{{ kind }} <span /> {{ shift }}</p>
+      <p class="card__info">Início das aulas em: {{ startDate }}</p>
     </div>
+    <div class="card__divisor" />
 
-    <p>Mensalidade com o Quero Bolsa:</p>
-    <p>R$ 1.487,98</p>
-    <p>R$ 375.80 /mês</p>
+    <div class="card__offer">
+      <p class="card__payment-title">Mensalidade com o Quero Bolsa:</p>
+      <p class="card__full-price">{{ fullPriceFormatted }}</p>
+      <p class="card__payment-value"><span>{{ paymentFormatted }}</span> /mês</p>
+    </div>
 
     <div class="card__buttons">
       <button class="card__cancel">
@@ -31,10 +39,55 @@
 </template>
 
 <script>
+import { formatMoney } from '@/utils/helpers.js';
+
 export default {
   name: 'CourseCard',
   props: {
-
+    image: {
+      type: String,
+      required: true
+    },
+    universityName: {
+      type: String,
+      required: true
+    },
+    universityScore: {
+      type: Number,
+      required: true
+    },
+    courseName: {
+      type: String,
+      required: true
+    },
+    kind: {
+      type: String,
+      required: true
+    },
+    shift: {
+      type: String,
+      required: true
+    },
+    startDate: {
+      type: String,
+      required: true
+    },
+    fullPrice: {
+      type: Number,
+      required: true
+    },
+    payment: {
+      type: Number,
+      required: true
+    }
+  },
+  computed: {
+    fullPriceFormatted() {
+      return formatMoney(this.fullPrice);
+    },
+    paymentFormatted() {
+      return formatMoney(this.payment);
+    },
   },
 }
 </script>
@@ -70,6 +123,17 @@ export default {
   &__stars {
     font-weight: 700;
     margin-top: 1rem;
+    display: flex;
+    align-items: center;
+
+    svg {
+      color: var(--yellow-primary);
+    }
+  }
+
+  &__score {
+    display: inline-block;
+    margin-right: 0.5rem;
   }
 
   &__divisor {
@@ -80,7 +144,61 @@ export default {
   }
 
   &__info {
+    width: 100%;
+  }
 
+  &__modality {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &::after {
+        content: '';
+        display: inline-block;
+        height: 0.3rem;
+        width: 0.3rem;
+        background: var(--black);
+        border-radius: 50%;
+        margin: 0 0.5rem;
+      }
+    }
+  }
+
+  &__info {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  &__offer {
+    text-align: center;
+  }
+
+  &__payment-title {
+    font-weight: 700;
+  }
+
+  &__full-price {
+    margin-top: 1rem;
+    text-decoration: line-through;
+  }
+
+  &__payment-value {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+
+    span {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--green);
+    }
   }
 
   &__buttons {
@@ -102,7 +220,7 @@ export default {
   }
 
   &__add {
-    padding: 1rem 3rem;
+    padding: 1rem 2rem;
     border: 1px solid var(--yellow-secondary);
     border-radius: 0.25rem;
     font-family: 'Red Hat Text', sans-serif;
