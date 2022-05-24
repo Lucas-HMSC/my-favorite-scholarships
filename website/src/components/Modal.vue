@@ -26,6 +26,37 @@
         text='Até quanto pode pagar?'
         :limit='10000'
       />
+
+      <div class="modal__result">
+        <span>Resultado:</span>
+        <span>Ordenar por</span>
+        <a class="modal__orderby">Nome da Faculdade <i class="fa-solid fa-angle-down"></i></a>
+      </div>
+
+      <ComboCourses 
+        title='Sistema da Informação'
+        type='Bacharelado'
+        :value='0'
+        :scholarship='50'
+        :payment='374'
+      />
+
+      <ComboCourses 
+        title='Sistema da Informação'
+        type='Bacharelado'
+        :value='0'
+        :scholarship='50'
+        :payment='374'
+      />
+
+      <div class="modal__buttons">
+        <button class="modal__cancel">
+          Cancelar
+        </button>
+        <button class="modal__add modal__add--disabled">
+          Adicionar bolsa(s)
+        </button>
+      </div>  
     </div>
   </section>
 </template>
@@ -34,13 +65,15 @@
 import ComboSelect from '@/components/ComboSelect.vue';
 import ComboCheckbox from '@/components/ComboCheckbox.vue';
 import ComboRange from '@/components/ComboRange.vue';
+import ComboCourses from '@/components/ComboCourses.vue';
 
 export default {
   name: 'Modal',
   components: {
     ComboSelect,
     ComboCheckbox,
-    ComboRange
+    ComboRange,
+    ComboCourses
   },
   computed: {
     modal() {
@@ -88,6 +121,63 @@ export default {
 
     p {
       line-height: 1.5rem;
+    }
+  }
+
+  &__result {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 1rem 0;
+
+    span {
+      font-weight: 500;
+    }
+
+    span + span {
+      margin-left: auto;
+    }
+  }
+
+  &__orderby {
+    grid-column: 1 / -1;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--blue-primary);
+    text-align: right;
+    margin: 0.25rem;
+  }
+
+  &__buttons {
+    border-top: 2px solid #eeefef;
+    padding: 1.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  &__cancel {
+    padding: 1rem 1.5rem;
+    border: 1px solid var(--blue-secondary);
+    border-radius: 0.25rem;
+    font-family: 'Red Hat Text', sans-serif;
+    font-weight: 500;
+    color: var(--blue-secondary);
+    background: var(--white);
+  }
+
+  &__add {
+    padding: 1rem 2rem;
+    border: 1px solid var(--yellow-secondary);
+    border-radius: 0.25rem;
+    font-family: 'Red Hat Text', sans-serif;
+    font-weight: 500;
+    color: var(--black);
+    background: var(--yellow-primary);
+
+    &--disabled {
+      border-color: var(--black);
+      background: #cacdce;
     }
   }
 }

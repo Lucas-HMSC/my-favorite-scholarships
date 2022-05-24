@@ -52,11 +52,9 @@ export default {
   }
 
   &__checkbox {
+    display: flex;
+    align-items: center;
     margin-bottom: 1rem;
-
-    input {
-
-    }
 
     label {
       margin-left: 0.5rem;
