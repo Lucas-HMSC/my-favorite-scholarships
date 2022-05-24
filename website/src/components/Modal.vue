@@ -113,7 +113,8 @@ export default {
 
   &__content {
     background: var(--white);
-    padding: 1rem;
+    padding: 1rem 1rem 0 1rem;
+    margin-bottom: 5rem;
 
     h1 {
       margin-top: 1rem;
