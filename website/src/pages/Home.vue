@@ -16,17 +16,23 @@
       <span>Clique para adicionar bolsas de cursos do seu interesse</span>
     </div>
 
+    <CourseCard 
+      
+    />
+
     <Modal />
   </section>
 </template>
 
 <script>
 import Modal from '@/components/Modal.vue';
+import CourseCard from '@/components/CourseCard.vue';
 
 export default {
   name: 'Home',
   components: {
     Modal,
+    CourseCard
   },
   computed: {},
   data: () => ({
