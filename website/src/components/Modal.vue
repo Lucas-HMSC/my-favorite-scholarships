@@ -97,7 +97,7 @@ export default {
   height: 100vh;
   width: 100vw;
   background: rgba($color: #1F2D30, $alpha: 0.88);
-  overflow: auto;
+  overflow: scroll;
 
   &__close {
     color: var(--white);
