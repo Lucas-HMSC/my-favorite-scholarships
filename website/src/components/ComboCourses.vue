@@ -2,12 +2,12 @@
   <section class="course">
     <input 
       type="checkbox" 
-      name="c-index" 
-      id="c-index" 
+      :name="'c-index' + value" 
+      :id="'c-index' + value" 
       :value="value"
     >
-    <label for="c-index" class="course__label">
-      <img src="https://www.tryimg.com/u/2019/04/16/unip.png" alt="Logo da faculdade" class="course__img">
+    <label :for="'c-index' + value" class="course__label">
+      <img :src="image" :alt="'Logo da ' + universityName" class="course__img">
       <div>
         <h2 class="course__title">{{ title }}</h2>
         <p class="course__type">{{ type }}</p>
@@ -24,6 +24,10 @@ import { formatMoney } from '@/utils/helpers.js';
 export default {
   name: 'ComboCourses',
   props: {
+    universityName: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -43,6 +47,10 @@ export default {
     payment: {
       type: Number,
       required: true,
+    },
+    image: {
+      type: String,
+      required: true
     },
   },
   computed: {
@@ -66,18 +74,16 @@ export default {
 
   &__label {
     display: flex;
-    flex: 1;
 
     div {
       display: flex;
       flex-direction: column;
-      margin: 0 auto;
+      margin-right: auto;
     }
   }
 
   &__img {
-    height: 1.5rem;
-    max-width: 100%;
+    max-width: 6rem;
     margin: auto 1rem;
   }
 

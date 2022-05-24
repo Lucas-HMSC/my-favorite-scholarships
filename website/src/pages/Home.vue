@@ -55,17 +55,10 @@ export default {
     CourseCard
   },
   computed: {},
-  data: () => ({
-    scholarships: [],
-  }),
   methods: {
     handleOpenModal() {
       this.$store.dispatch('setModal', true);
     },
-  },
-  async mounted() {
-    const response = await fetch('db.json');
-    this.scholarships = await response.json();
   },
 }
 </script>

@@ -34,19 +34,15 @@
       </div>
 
       <ComboCourses 
-        title='Sistema da Informação'
-        type='Bacharelado'
-        :value='0'
-        :scholarship='50'
-        :payment='374'
-      />
-
-      <ComboCourses 
-        title='Sistema da Informação'
-        type='Bacharelado'
-        :value='0'
-        :scholarship='50'
-        :payment='374'
+        v-for='(item, index) in scholarships'
+        :key='index'
+        :universityName='item.university.name'
+        :title='item.course.name'
+        :type='item.course.level'
+        :value='index'
+        :scholarship='item.discount_percentage'
+        :payment='item.price_with_discount'
+        :image='item.university.logo_url'
       />
 
       <div class="modal__buttons">
@@ -79,11 +75,22 @@ export default {
     modal() {
       return this.$store.state.modal.show;
     },
+    scholarshipsFiltered() {
+      return this.scholarships;
+    },
   },
+  data: () => ({
+    scholarships: [],
+  }),
   methods: {
     handleCloseModal() {
       this.$store.dispatch('setModal', false);
     },
+  },
+  async mounted() {
+    const response = await fetch('db.json');
+    this.scholarships = await response.json();
+    console.log(this.scholarships);
   },
 }
 </script>
