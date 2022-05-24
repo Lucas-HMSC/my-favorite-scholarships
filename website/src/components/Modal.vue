@@ -162,7 +162,7 @@ export default {
     border: 1px solid var(--blue-secondary);
     border-radius: 0.25rem;
     font-family: 'Red Hat Text', sans-serif;
-    font-weight: 500;
+    font-weight: 700;
     color: var(--blue-secondary);
     background: var(--white);
   }
@@ -172,7 +172,7 @@ export default {
     border: 1px solid var(--yellow-secondary);
     border-radius: 0.25rem;
     font-family: 'Red Hat Text', sans-serif;
-    font-weight: 500;
+    font-weight: 700;
     color: var(--black);
     background: var(--yellow-primary);
 
