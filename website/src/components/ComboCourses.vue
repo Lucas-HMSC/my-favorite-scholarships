@@ -6,7 +6,7 @@
       :id="'c-index' + value" 
       :value="value"
     >
-    <label :for="'c-index' + value" class="course__label">
+    <label :for="'c-index' + value" class="course__label" @click='handleSelectCourse'>
       <img :src="image" :alt="'Logo da ' + universityName" class="course__img">
       <div>
         <h2 class="course__title">{{ title }}</h2>
@@ -59,6 +59,11 @@ export default {
     },
     paymentByMonth() {
       return `${formatMoney(this.payment)}/mês`;
+    },
+  },
+  methods: {
+    handleSelectCourse() {
+      this.$emit('handleSelectScholarship', this.value);
     },
   },
 }

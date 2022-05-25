@@ -54,13 +54,21 @@
         :scholarship='item.discount_percentage'
         :payment='item.price_with_discount'
         :image='item.university.logo_url'
+        @handleSelectScholarship='handleSelectScholarship'
       />
 
       <div class="modal__buttons">
-        <button class="modal__cancel">
+        <button 
+          class="modal__cancel"
+          @click='handleCloseModal'
+        >
           Cancelar
         </button>
-        <button class="modal__add modal__add--disabled">
+        <button 
+          class="modal__add" 
+          :class="buttonAddActive ? '' : ' modal__add--disabled'"
+          @click='handleClickAddFavorite'
+        >
           Adicionar bolsa(s)
         </button>
       </div>  
@@ -86,10 +94,14 @@ export default {
     modal() {
       return this.$store.state.modal.show;
     },
+    buttonAddActive() {
+      return this.favoriteScholarshipsSelected.length > 0;
+    },
   },
   data: () => ({
     scholarships: [],
     scholarshipsFiltered: [],
+    favoriteScholarshipsSelected: [],
     filter: {
       city: '',
       course: '',
@@ -152,6 +164,28 @@ export default {
     handleChangeOrdination() {
       this.orderByName = !this.orderByName;
       this.orderByUniversityName();
+    },
+    handleSelectScholarship(value) {
+      if (!this.favoriteScholarshipsSelected.includes(this.scholarshipsFiltered[value])) {
+        this.favoriteScholarshipsSelected.push(this.scholarshipsFiltered[value]);
+      } else {
+        const index = this.favoriteScholarshipsSelected.indexOf(this.scholarshipsFiltered[value]);
+        this.favoriteScholarshipsSelected.splice(index, 1);
+      }
+    },
+    handleClickAddFavorite() {
+      if (!this.buttonAddActive) return;
+
+      this.$store.dispatch('setFavorite', this.favoriteScholarshipsSelected);
+      this.saveFavoriteOnLocalStorage();
+      this.handleCloseModal();
+    },
+    saveFavoriteOnLocalStorage() {
+      if (window.localStorage.getItem('@quero-bolsa')) {
+        window.localStorage.removeItem('@quero-bolsa')
+      }
+
+      window.localStorage.setItem('@quero-bolsa', JSON.stringify(this.favoriteScholarshipsSelected))
     },
   },
   async mounted() {
@@ -255,6 +289,7 @@ export default {
     background: var(--yellow-primary);
 
     &--disabled {
+      cursor: not-allowed;
       border-color: var(--black);
       background: #cacdce;
     }
