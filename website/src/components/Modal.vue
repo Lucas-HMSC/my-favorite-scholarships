@@ -9,22 +9,26 @@
 
       <ComboSelect 
         text='Selecione sua cidade'
-        :options='["São José dos Campos", "Jacareí"]'
+        :options='cities'
+        :value.sync='filter.city'
       />
 
       <ComboSelect 
         text='Selecione o curso de sua preferência'
-        :options='["Ciência da Computação", "Psicologia"]'
+        :options='courses'
+        :value.sync='filter.course'
       />
 
       <ComboCheckbox
         text='Como você quer estudar?'
         :options='["Presencial", "A distância"]'
+        :value.sync='filter.type'
       />
 
       <ComboRange
         text='Até quanto pode pagar?'
         :limit='10000'
+        :value.sync='filter.price'
       />
 
       <div class="modal__result">
@@ -81,16 +85,37 @@ export default {
   },
   data: () => ({
     scholarships: [],
+    filter: {
+      city: '',
+      course: '',
+      type: [],
+      price: ''
+    },
+    cities: [],
+    courses: []
   }),
   methods: {
     handleCloseModal() {
       this.$store.dispatch('setModal', false);
     },
+    orderByUniversityName() {
+      this.scholarships = this.scholarships.sort((a, b) => 
+        a.university.name > b.university.name ? 1 : -1
+      );
+    },
+    filterItems(arr) {
+      return arr.filter((v, i, a) => a.indexOf(v) === i)
+    }
   },
   async mounted() {
     const response = await fetch('db.json');
     this.scholarships = await response.json();
-    console.log(this.scholarships);
+    this.orderByUniversityName();
+
+    this.cities = this.scholarships.map((item) => item.campus.city);
+    this.cities = this.filterItems(this.cities);
+    this.courses = this.scholarships.map((item) => item.course.name);
+    this.courses = this.filterItems(this.courses);
   },
 }
 </script>

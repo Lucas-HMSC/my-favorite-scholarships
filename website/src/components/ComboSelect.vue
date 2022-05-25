@@ -1,7 +1,7 @@
 <template>
   <section class="combo">
     <label for="select" class="combo__text">{{ text }}</label>
-    <select name="select" id="select" class="combo__select">
+    <select name="select" id="select" class="combo__select" v-model='model'>
       <option 
         v-for='(opt, index) in options'
         :value="opt"
@@ -24,8 +24,20 @@ export default {
     options: {
       type: Array,
       required: true,
-    }
-  }
+    },
+    value: {
+      type: String,
+      required: true,
+    },
+  },
+  data: () => ({
+    model: '',
+  }),
+  watch: {
+    model() {
+      this.$emit("update:value", this.model);
+    },
+  },
 }
 </script>
 

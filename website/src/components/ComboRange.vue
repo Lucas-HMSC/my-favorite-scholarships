@@ -1,7 +1,7 @@
 <template>
   <section class="combo">
     <label class="combo__text">{{ text }}</label>
-    <span class="combo__limit">{{ value }}</span>
+    <span class="combo__limit">{{ valueNumber }}</span>
     <input 
       type="range" 
       id="limit" 
@@ -26,15 +26,20 @@ export default {
     limit: {
       type: Number,
       required: true,
-    }
+    },
+    value: {
+      type: String,
+      required: true,
+    },
   },
   data: () => ({
     valueModel: '0',
-    value: 0,
+    valueNumber: 0,
   }),
   watch: {
     valueModel() {
-      this.value = formatMoney(Number(this.valueModel));
+      this.valueNumber = formatMoney(Number(this.valueModel));
+      this.$emit("update:value", this.valueModel);
     },
   },
 }

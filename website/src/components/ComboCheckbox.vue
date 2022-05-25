@@ -6,7 +6,7 @@
         type="checkbox" 
         name="opt1" 
         id="opt1" 
-        :value="options[0]"
+        @click='handleSelect(options[0])'
       >
       <label for="opt1">{{ options[0] }}</label>
     </div>
@@ -15,7 +15,7 @@
         type="checkbox" 
         name="opt2" 
         id="opt2" 
-        :value="options[1]"
+        @click='handleSelect(options[1])'
       >
       <label for="opt2">{{ options[1] }}</label>
     </div>
@@ -33,8 +33,26 @@ export default {
     options: {
       type: Array,
       required: true,
+    },
+    value: {
+      type: Array,
+      required: true,
+    },
+  },
+  data: () => ({
+    model: [],
+  }),
+  watch: {
+    model() {
+      this.$emit("update:value", this.model);
+    },
+  },
+  methods: {
+    handleSelect(value) {
+      if (this.model.findIndex((item) => item == value) == -1) this.model.push(value);
+      else this.model = this.model.filter((item) => item != value);
     }
-  }
+  },
 }
 </script>
 
