@@ -34,11 +34,18 @@
       <div class="modal__result">
         <span>Resultado:</span>
         <span>Ordenar por</span>
-        <a class="modal__orderby">Nome da Faculdade <i class="fa-solid fa-angle-down"></i></a>
+        <a class="modal__orderby" @click='handleChangeOrdination' v-show='orderByName'>
+          Nome da Faculdade 
+          <i class="fa-solid fa-angle-down"></i>
+        </a>
+        <a class="modal__orderby" @click='handleChangeOrdination' v-show='!orderByName'>
+          Nome da Faculdade 
+          <i class="fa-solid fa-angle-up"></i>
+        </a>
       </div>
 
       <ComboCourses 
-        v-for='(item, index) in scholarships'
+        v-for='(item, index) in scholarshipsFiltered'
         :key='index'
         :universityName='item.university.name'
         :title='item.course.name'
@@ -79,43 +86,82 @@ export default {
     modal() {
       return this.$store.state.modal.show;
     },
-    scholarshipsFiltered() {
-      return this.scholarships;
-    },
   },
   data: () => ({
     scholarships: [],
+    scholarshipsFiltered: [],
     filter: {
       city: '',
       course: '',
-      type: [],
+      type: ["Presencial", "A distância"],
       price: ''
     },
     cities: [],
-    courses: []
+    courses: [],
+    orderByName: true,
   }),
+  watch: {
+    'filter.city'() {
+      const filter = this.scholarships.filter((item) =>
+        (item.campus.city == this.filter.city || this.filter.city == '')
+      );
+      this.scholarshipsFiltered = filter;
+      this.orderByUniversityName();
+    },
+    'filter.course'() {
+      const filter = this.scholarships.filter((item) =>
+        (item.course.name == this.filter.course || this.filter.course == '')
+      );
+      this.scholarshipsFiltered = filter;
+      this.orderByUniversityName();
+    },
+    'filter.type'() {
+      const filter = this.scholarships.filter((item) => {
+        if (item.course.kind.toUpperCase() == 'PRESENCIAL' && this.filter.type.includes('Presencial'))
+          return item.course.kind;
+        if (item.course.kind.toUpperCase() == 'EAD' && this.filter.type.includes('A distância'))
+          return item.course.kind;
+      }
+      );
+      this.scholarshipsFiltered = filter;
+      this.orderByUniversityName();
+    },
+    'filter.price'() {
+      const filter = this.scholarships.filter((item) =>
+        (item.price_with_discount <= Number(this.filter.price) || this.filter.price == '')
+      );
+      this.scholarshipsFiltered = filter;
+      this.orderByUniversityName();
+    },
+  },
   methods: {
     handleCloseModal() {
       this.$store.dispatch('setModal', false);
     },
     orderByUniversityName() {
-      this.scholarships = this.scholarships.sort((a, b) => 
-        a.university.name > b.university.name ? 1 : -1
-      );
+      if (this.orderByName) {
+        this.scholarshipsFiltered = this.scholarshipsFiltered.sort((a, b) => 
+          a.university.name > b.university.name ? 1 : -1
+        );
+      } else {
+        this.scholarshipsFiltered = this.scholarshipsFiltered.sort((a, b) => 
+          a.university.name < b.university.name ? 1 : -1
+        );
+      }
     },
-    filterItems(arr) {
-      return arr.filter((v, i, a) => a.indexOf(v) === i)
-    }
+    handleChangeOrdination() {
+      this.orderByName = !this.orderByName;
+      this.orderByUniversityName();
+    },
   },
   async mounted() {
     const response = await fetch('db.json');
     this.scholarships = await response.json();
+    this.scholarshipsFiltered = this.scholarships;
     this.orderByUniversityName();
 
-    this.cities = this.scholarships.map((item) => item.campus.city);
-    this.cities = this.filterItems(this.cities);
-    this.courses = this.scholarships.map((item) => item.course.name);
-    this.courses = this.filterItems(this.courses);
+    this.cities = Array.from(new Set(this.scholarships.map((item) => item.campus.city)));
+    this.courses = Array.from(new Set(this.scholarships.map((item) => item.course.name)));
   },
 }
 </script>

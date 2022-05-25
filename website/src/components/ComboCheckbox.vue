@@ -7,6 +7,7 @@
         name="opt1" 
         id="opt1" 
         @click='handleSelect(options[0])'
+        checked
       >
       <label for="opt1">{{ options[0] }}</label>
     </div>
@@ -16,6 +17,7 @@
         name="opt2" 
         id="opt2" 
         @click='handleSelect(options[1])'
+        checked
       >
       <label for="opt2">{{ options[1] }}</label>
     </div>
@@ -49,9 +51,12 @@ export default {
   },
   methods: {
     handleSelect(value) {
-      if (this.model.findIndex((item) => item == value) == -1) this.model.push(value);
+      if (!this.model.includes(value)) this.model.push(value);
       else this.model = this.model.filter((item) => item != value);
     }
+  },
+  mounted() {
+    this.model = this.value;
   },
 }
 </script>
