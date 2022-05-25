@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     modal: {
-      show: true,
+      show: false,
     },
     favorite: {
       scholarships: []
@@ -19,7 +19,7 @@ export default new Vuex.Store({
       state.modal.show = payload;
     },
     SET_FAVORITE: (state, payload) => {
-      state.favorite = payload;
+      state.favorite.scholarships = payload;
     },
   },
   actions: {

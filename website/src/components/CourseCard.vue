@@ -28,7 +28,7 @@
     </div>
 
     <div class="card__buttons">
-      <button class="card__cancel">
+      <button class="card__cancel" @click='handleClickExclude'>
         Excluir
       </button>
       <button class="card__add">
@@ -79,7 +79,11 @@ export default {
     payment: {
       type: Number,
       required: true
-    }
+    },
+    value: {
+      type: Number,
+      required: true,
+    },
   },
   computed: {
     fullPriceFormatted() {
@@ -87,6 +91,11 @@ export default {
     },
     paymentFormatted() {
       return formatMoney(this.payment);
+    },
+  },
+  methods: {
+    handleClickExclude() {
+      this.$emit('handleClickExclude', this.value);
     },
   },
 }

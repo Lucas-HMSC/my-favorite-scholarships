@@ -149,6 +149,7 @@ export default {
   methods: {
     handleCloseModal() {
       this.$store.dispatch('setModal', false);
+      this.cleanFields();
     },
     orderByUniversityName() {
       if (this.orderByName) {
@@ -176,7 +177,10 @@ export default {
     handleClickAddFavorite() {
       if (!this.buttonAddActive) return;
 
-      this.$store.dispatch('setFavorite', this.favoriteScholarshipsSelected);
+      const oldFavorite = this.$store.state.favorite.scholarships;  
+      const newFavorite = oldFavorite.concat(this.favoriteScholarshipsSelected);
+
+      this.$store.dispatch('setFavorite', newFavorite);
       this.saveFavoriteOnLocalStorage();
       this.handleCloseModal();
     },
@@ -186,6 +190,16 @@ export default {
       }
 
       window.localStorage.setItem('@quero-bolsa', JSON.stringify(this.favoriteScholarshipsSelected))
+    },
+    cleanFields() {
+      this.favoriteScholarshipsSelected = [];
+      this.filter = {
+        city: '',
+        course: '',
+        type: ["Presencial", "A distância"],
+        price: ''
+      };
+      this.orderByName = true;
     },
   },
   async mounted() {

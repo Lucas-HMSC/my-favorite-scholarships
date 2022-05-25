@@ -16,29 +16,23 @@
       <span>Clique para adicionar bolsas de cursos do seu interesse</span>
     </div>
 
-    <CourseCard 
-      image='https://www.tryimg.com/u/2019/04/16/anhembi-morumbi.png'
-      universityName='Anhembi Morumbi'
-      :universityScore='4.2'
-      courseName='Jornalismo'
-      kind='Presencial'
-      shift='Noite'
-      startDate='01/08/2019'
-      :fullPrice='1461.16'
-      :payment='1241.99'
-    />
-
-    <CourseCard 
-      image='https://www.tryimg.com/u/2019/04/16/anhembi-morumbi.png'
-      universityName='Anhembi Morumbi'
-      :universityScore='4.2'
-      courseName='Jornalismo'
-      kind='Presencial'
-      shift='Noite'
-      startDate='01/08/2019'
-      :fullPrice='1461.16'
-      :payment='1241.99'
-    />
+    <div v-if='showCourseCard'>
+      <CourseCard
+        v-for='(item, index) in myFavoriteScholarships'
+        :key='index'
+        :value='index'
+        :image='item.university.logo_url'
+        :universityName='item.university.name'
+        :universityScore='item.university.score'
+        :courseName='item.course.name'
+        :kind='item.course.kind'
+        :shift='item.course.shift'
+        :startDate='item.start_date'
+        :fullPrice='item.full_price'
+        :payment='item.price_with_discount'
+        @handleClickExclude='handleClickExclude'
+      />
+    </div>
 
     <Modal />
   </section>
@@ -54,11 +48,38 @@ export default {
     Modal,
     CourseCard
   },
-  computed: {},
+  computed: {
+    myFavoriteScholarships() {
+      return this.$store.state.favorite.scholarships;  
+    },
+    showCourseCard() {
+      return this.myFavoriteScholarships.length > 0;
+    },
+  },
   methods: {
     handleOpenModal() {
       this.$store.dispatch('setModal', true);
     },
+    handleClickExclude(value) {
+      this.myFavoriteScholarships.splice(value, 1);
+      this.$store.dispatch('setFavorite', this.myFavoriteScholarships);
+      this.saveFavoriteOnLocalStorage();
+    },      
+    saveFavoriteOnLocalStorage() {
+      if (window.localStorage.getItem('@quero-bolsa')) {
+        window.localStorage.removeItem('@quero-bolsa')
+      }
+
+      if (this.myFavoriteScholarships.length > 0) {
+        window.localStorage.setItem('@quero-bolsa', JSON.stringify(this.myFavoriteScholarships));
+      }
+    }  
+  },
+  mounted() {
+    const favoriteScholarships = window.localStorage.getItem('@quero-bolsa');
+    if (favoriteScholarships) {
+      this.$store.dispatch('setFavorite', JSON.parse(favoriteScholarships));
+    }
   },
 }
 </script>
