@@ -4,9 +4,9 @@
       type="checkbox" 
       :name="'c-index' + value" 
       :id="'c-index' + value" 
-      :value="value"
+      :checked="isChecked"
     >
-    <label :for="'c-index' + value" class="course__label" @click='handleSelectCourse'>
+    <label class="course__label" @click='handleSelectCourse'>
       <img :src="image" :alt="'Logo da ' + universityName" class="course__img">
       <div>
         <h2 class="course__title">{{ title }}</h2>
@@ -60,9 +60,21 @@ export default {
     paymentByMonth() {
       return `${formatMoney(this.payment)}/mês`;
     },
+    isModalOpen() {
+      return this.$store.state.modal.show;
+    },
   },
+  watch: {
+    isModalOpen() {
+      if (!this.isModalOpen) this.isChecked = false;
+    },
+  },
+  data: () => ({
+    isChecked: false,
+  }),
   methods: {
     handleSelectCourse() {
+      this.isChecked = true;
       this.$emit('handleSelectScholarship', this.value);
     },
   },

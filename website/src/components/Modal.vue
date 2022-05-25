@@ -181,15 +181,11 @@ export default {
       const newFavorite = oldFavorite.concat(this.favoriteScholarshipsSelected);
 
       this.$store.dispatch('setFavorite', newFavorite);
-      this.saveFavoriteOnLocalStorage();
+      this.saveFavoriteOnLocalStorage(newFavorite);
       this.handleCloseModal();
     },
-    saveFavoriteOnLocalStorage() {
-      if (window.localStorage.getItem('@quero-bolsa')) {
-        window.localStorage.removeItem('@quero-bolsa')
-      }
-
-      window.localStorage.setItem('@quero-bolsa', JSON.stringify(this.favoriteScholarshipsSelected))
+    saveFavoriteOnLocalStorage(favoriteScholarships) {
+      window.localStorage.setItem('@quero-bolsa', JSON.stringify(favoriteScholarships));
     },
     cleanFields() {
       this.favoriteScholarshipsSelected = [];
