@@ -11,6 +11,7 @@
         :key='item.id'
         :class="item.isActive ? 'home__link--active' : ''"
         @click='handleFilterBySemester(item.id)'
+        role="navigation"
       >{{ item.title }}</a>
     </div>
 

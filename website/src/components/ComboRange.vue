@@ -6,9 +6,13 @@
       type="range" 
       id="limit" 
       name="limit" 
+      aria-valuemin="1"      
       min="1" 
       :max="limit"
+      :aria-valuemax="limit"      
       v-model='valueModel'
+      :aria-valuenow="valueModel"
+      role="progressbar"      
     >
   </section>
 </template>

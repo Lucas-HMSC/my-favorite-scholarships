@@ -1,5 +1,5 @@
 <template>
-  <section class="breadcrumb">
+  <section class="breadcrumb" role="navigation">
     <i class="fa-solid fa-angle-left"></i>
     <span class="breadcrumb__text">
       Minha conta

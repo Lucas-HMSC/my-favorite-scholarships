@@ -1,5 +1,5 @@
 <template>
-  <nav class="nav">
+  <nav class="nav" role="navigation">
     <a href="#" class="nav__account">
       Minha conta
     </a>
