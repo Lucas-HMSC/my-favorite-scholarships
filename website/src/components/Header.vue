@@ -49,9 +49,6 @@ export default {
       return window.innerWidth < 720;
     },
   },
-  mounted() {
-    console.log(this.layoutMobile);
-  },
 }
 </script>
 
