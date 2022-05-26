@@ -15,28 +15,28 @@
     </div>
   </header>
   
-  <header class="header-g" v-else>
-    <div class="header-g__container">
-      <div class="header-g__help">
-        <i class="fa-solid fa-circle-info"></i>
-        <span>Como funciona</span>
+  <header class="container" v-else>
+    <div class="header-g">
+      <div class="header-g__leftbox">
+        <div class="header-g__help">
+          <i class="fa-solid fa-circle-info"></i>
+          <span>Como funciona</span>
+        </div>
+        <div class="header-g__whatsapp">
+          <i class="fa-brands fa-whatsapp"></i>
+          <p>
+            <span>0800 123 2222</span>
+            Envie mensagem ou ligue
+          </p>
+        </div>
       </div>
-      <div class="header-g__whatsapp">
-        <i class="fa-brands fa-whatsapp"></i>
-        <p>
-          <span>0800 123 2222</span>
-          Envie mensagem ou ligue
-        </p>
+      <div class="header-g__logo">
+        <img src="@/assets/logo-querobolsa.svg" alt="Logo da Quero Bolsa">
       </div>
-    </div>
-
-    <div class="header-g__logo">
-      <img src="@/assets/logo-querobolsa.svg" alt="Logo da Quero Bolsa">
-    </div>
-
-    <div class="header-g__account">
-      <span>Lucas Carvalho</span>
-      <i class="fa-solid fa-circle-user"></i>
+      <div class="header-g__account">
+        <span>Lucas Carvalho</span>
+        <i class="fa-solid fa-circle-user"></i>
+      </div>
     </div>
   </header>
 </template>
@@ -98,89 +98,94 @@ export default {
   }
 }
 
-.header-g {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-height: 5rem;
+.container {
   background: #FFFFFF;
-  padding: 1rem 0;
 
-  &__container {
+  .header-g {
     display: flex;
     align-items: center;
-    justify-content: center;
-  }
+    justify-content: space-between;
+    max-height: 5rem;
+    padding: 1rem 1.5rem;
+    max-width: 1240px;
+    margin: 0 auto;
 
-  &__help {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 1rem;
-    padding: 1rem 1.5rem 1rem 1rem;
-    border-right: 2px solid #eeefef;
-    color: var(--blue-secondary);
-
-    span {
-      font-weight: 500;
-      margin-left: 0.5rem;
-    }
-
-    svg {
-      width: 1.5rem;
-      height: 1.5rem;
-    }
-  }
-
-  &__whatsapp {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-
-    svg {
-      height: 1.5rem;
-      width: 1.5rem;
-      color: var(--green);
-    }
-
-    p {
+    &__leftbox {
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &__help {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      padding: 1rem 1.5rem 1rem 0;
+      border-right: 2px solid #eeefef;
       color: var(--blue-secondary);
-      
+
       span {
-        font-weight: 700;
+        font-weight: 500;
+        margin-left: 0.5rem;
+      }
+
+      svg {
+        width: 1.5rem;
+        height: 1.5rem;
       }
     }
-  }
 
-  &__logo {
-    flex: 1;
+    &__whatsapp {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
 
-    img {
-      display: block;
-      max-width: 100%;
-      max-height: 3rem;
-      margin: 0 auto;
+      svg {
+        height: 1.5rem;
+        width: 1.5rem;
+        color: var(--green);
+      }
+
+      p {
+        display: flex;
+        flex-direction: column;
+        color: var(--blue-secondary);
+        
+        span {
+          font-weight: 700;
+        }
+      }
     }
-  }
 
-  &__account {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 1rem;
-    color: var(--blue-secondary);
+    &__logo {
+      flex: 1;
 
-    span {
-      font-weight: 500;
-      margin-right: 0.5rem;
+      img {
+        display: block;
+        max-width: 100%;
+        max-height: 3rem;
+        margin: 0 auto;
+      }
     }
 
-    svg {
-      width: 1.5rem;
-      height: 1.5rem;
+    &__account {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 1rem;
+      color: var(--blue-secondary);
+
+      span {
+        font-weight: 500;
+        margin-right: 0.5rem;
+      }
+
+      svg {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
     }
   }
 }
