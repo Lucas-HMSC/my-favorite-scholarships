@@ -209,4 +209,34 @@ export default {
     }
   }
 }
+
+@media only screen and (min-width: 720px) {
+  .home {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+
+    &__filter {
+      display: inline-block;
+      margin-top: 2rem;
+      
+      a {
+        display: inline-block;
+        width: auto;
+        padding: 0.25rem 1rem;
+      }
+
+      a + a {
+        border-top: none;
+        border-left: 1px solid var(--blue-secondary);
+      }
+    }
+
+    &__addbox {
+      padding: 11rem 2rem;
+      max-width: 22rem;
+      cursor: pointer;
+    }
+  }
+}
 </style>
