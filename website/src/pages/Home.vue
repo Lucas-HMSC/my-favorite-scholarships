@@ -22,22 +22,24 @@
     </div>
 
     <div v-show='showCourseCard'>
-      <CourseCard
-        v-for='(item, index) in myFavoriteScholarshipsFiltered'
-        :key='index'
-        :value='index'
-        :image='item.university.logo_url'
-        :universityName='item.university.name'
-        :universityScore='item.university.score'
-        :courseName='item.course.name'
-        :kind='item.course.kind'
-        :shift='item.course.shift'
-        :startDate='item.start_date'
-        :fullPrice='item.full_price'
-        :payment='item.price_with_discount'
-        :enabled='item.enabled'
-        @handleClickExclude='handleClickExclude'
-      />
+      <TransitionGroup> 
+        <CourseCard
+          v-for='(item, index) in myFavoriteScholarshipsFiltered'
+          :key='index'
+          :value='index'
+          :image='item.university.logo_url'
+          :universityName='item.university.name'
+          :universityScore='item.university.score'
+          :courseName='item.course.name'
+          :kind='item.course.kind'
+          :shift='item.course.shift'
+          :startDate='item.start_date'
+          :fullPrice='item.full_price'
+          :payment='item.price_with_discount'
+          :enabled='item.enabled'
+          @handleClickExclude='handleClickExclude'
+        />
+      </TransitionGroup>
     </div>
 
     <Modal />

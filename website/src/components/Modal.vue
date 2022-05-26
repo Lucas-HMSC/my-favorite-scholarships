@@ -1,79 +1,76 @@
 <template>
-  <section class="modal" v-show='modal'> 
-    <div class="modal__close" @click='handleCloseModal'>
-      <i class="fa-solid fa-xmark"></i>
-    </div>
-    <div class="modal__content">
-      <h1>Adicionar bolsa</h1>
-      <p>Filtre e adicione as bolsas de seu interesse.</p>
-
-      <ComboSelect 
-        text='Selecione sua cidade'
-        :options='cities'
-        :value.sync='filter.city'
-      />
-
-      <ComboSelect 
-        text='Selecione o curso de sua preferência'
-        :options='courses'
-        :value.sync='filter.course'
-      />
-
-      <ComboCheckbox
-        text='Como você quer estudar?'
-        :options='["Presencial", "A distância"]'
-        :value.sync='filter.type'
-      />
-
-      <ComboRange
-        text='Até quanto pode pagar?'
-        :limit='10000'
-        :value.sync='filter.price'
-      />
-
-      <div class="modal__result">
-        <span>Resultado:</span>
-        <span>Ordenar por</span>
-        <a class="modal__orderby" @click='handleChangeOrdination' v-show='orderByName'>
-          Nome da Faculdade 
-          <i class="fa-solid fa-angle-down"></i>
-        </a>
-        <a class="modal__orderby" @click='handleChangeOrdination' v-show='!orderByName'>
-          Nome da Faculdade 
-          <i class="fa-solid fa-angle-up"></i>
-        </a>
+  <Transition>
+    <section class="modal" v-show='modal'>
+      <div class="modal__close" @click='handleCloseModal'>
+        <i class="fa-solid fa-xmark"></i>
       </div>
-
-      <ComboCourses 
-        v-for='(item, index) in scholarshipsFiltered'
-        :key='index'
-        :universityName='item.university.name'
-        :title='item.course.name'
-        :type='item.course.level'
-        :value='index'
-        :scholarship='item.discount_percentage'
-        :payment='item.price_with_discount'
-        :image='item.university.logo_url'
-        @handleSelectScholarship='handleSelectScholarship'
-      />
-
-      <div class="modal__buttons">
-        <button 
-          class="modal__cancel"
-          @click='handleCloseModal'
-        >
-          Cancelar
-        </button>
-        <button 
-          class="modal__add" 
-          :class="buttonAddActive ? '' : ' modal__add--disabled'"
-          @click='handleClickAddFavorite'
-        >
-          Adicionar bolsa(s)
-        </button>
-      </div>  
-    </div>
-  </section>
+      <div class="modal__content">
+        <h1>Adicionar bolsa</h1>
+        <p>Filtre e adicione as bolsas de seu interesse.</p>
+        <ComboSelect
+          text='Selecione sua cidade'
+          :options='cities'
+          :value.sync='filter.city'
+        />
+        <ComboSelect
+          text='Selecione o curso de sua preferência'
+          :options='courses'
+          :value.sync='filter.course'
+        />
+        <ComboCheckbox
+          text='Como você quer estudar?'
+          :options='["Presencial", "A distância"]'
+          :value.sync='filter.type'
+        />
+        <ComboRange
+          text='Até quanto pode pagar?'
+          :limit='10000'
+          :value.sync='filter.price'
+        />
+        <div class="modal__result">
+          <span>Resultado:</span>
+          <span>Ordenar por</span>
+          <a class="modal__orderby" @click='handleChangeOrdination' v-show='orderByName'>
+            Nome da Faculdade
+            <i class="fa-solid fa-angle-down"></i>
+          </a>
+          <a class="modal__orderby" @click='handleChangeOrdination' v-show='!orderByName'>
+            Nome da Faculdade
+            <i class="fa-solid fa-angle-up"></i>
+          </a>
+        </div>
+        <TransitionGroup>
+          <ComboCourses
+            v-for='(item, index) in scholarshipsFiltered'
+            :key='index'
+            :universityName='item.university.name'
+            :title='item.course.name'
+            :type='item.course.level'
+            :value='index'
+            :scholarship='item.discount_percentage'
+            :payment='item.price_with_discount'
+            :image='item.university.logo_url'
+            @handleSelectScholarship='handleSelectScholarship'
+          />
+        </TransitionGroup>
+        <div class="modal__buttons">
+          <button
+            class="modal__cancel"
+            @click='handleCloseModal'
+          >
+            Cancelar
+          </button>
+          <button
+            class="modal__add"
+            :class="buttonAddActive ? '' : ' modal__add--disabled'"
+            @click='handleClickAddFavorite'
+          >
+            Adicionar bolsa(s)
+          </button>
+        </div>
+      </div>
+    </section>
+  </Transition>
 </template>
 
 <script>
