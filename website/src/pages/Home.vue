@@ -181,6 +181,7 @@ export default {
   &__link--active {
     color: var(--white);
     background: var(--blue-secondary);
+    transition: background 0.3s;
   }
 
   &__addbox {
