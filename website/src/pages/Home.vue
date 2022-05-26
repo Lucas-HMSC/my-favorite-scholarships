@@ -34,6 +34,7 @@
         :startDate='item.start_date'
         :fullPrice='item.full_price'
         :payment='item.price_with_discount'
+        :enabled='item.enabled'
         @handleClickExclude='handleClickExclude'
       />
     </div>

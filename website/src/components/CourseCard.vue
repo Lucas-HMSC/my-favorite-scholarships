@@ -31,8 +31,11 @@
       <button class="card__cancel" @click='handleClickExclude'>
         Excluir
       </button>
-      <button class="card__add">
+      <button class="card__add" v-if='enabled'>
         Ver oferta
+      </button>
+      <button class="card__add card__add--disabled" v-else>
+        Indisponível 
       </button>
     </div> 
 </section>
@@ -83,6 +86,10 @@ export default {
     value: {
       type: Number,
       required: true,
+    },
+    enabled: {
+      type: Boolean,
+      required: true
     },
   },
   computed: {
@@ -238,6 +245,7 @@ export default {
     background: var(--yellow-primary);
 
     &--disabled {
+      cursor: not-allowed;
       border-color: var(--black);
       background: #cacdce;
     }
