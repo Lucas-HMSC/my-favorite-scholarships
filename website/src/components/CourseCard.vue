@@ -6,19 +6,23 @@
 
     <p class="card__name">{{ universityName }}</p>
     <p class="card__course">{{ courseName }}</p>
-    <div class="card__stars">
+    <Score :score='universityScore' />
+    <!-- <div class="card__stars">
       <span class="card__score">{{ universityScore }}</span> 
       <span><i class="fa-solid fa-star"></i></span>
       <span><i class="fa-solid fa-star"></i></span>
       <span><i class="fa-solid fa-star"></i></span>
       <span><i class="fa-solid fa-star"></i></span>
       <span><i class="fa-solid fa-star"></i></span>
-    </div>
+    </div> -->
+
     <div class="card__divisor" />
+
     <div>
       <p class="card__modality">{{ kind }} <span /> {{ shift }}</p>
       <p class="card__info">Início das aulas em: {{ startDate }}</p>
     </div>
+    
     <div class="card__divisor" />
 
     <div class="card__offer">
@@ -44,8 +48,13 @@
 <script>
 import { formatMoney } from '@/utils/helpers.js';
 
+import Score from '@/components/Score.vue';
+
 export default {
   name: 'CourseCard',
+  components: {
+    Score,
+  },
   props: {
     image: {
       type: String,
