@@ -5,9 +5,13 @@
     <p class="home__text">Adicione bolsas de cursos e faculdades do seu interesse e receba atualizações com as melhores ofertas disponíveis.</p>
 
     <div class="home__filter">
-      <a href="#" class="home__link--active">Todos os semestres</a>
-      <a href="#">2º semestre de 2019</a>
-      <a href="#">1º semestre de 2020</a>
+      <a
+        v-for='(item) in semesters'
+        href='#'
+        :key='item.id'
+        :class="item.isActive ? 'home__link--active' : ''"
+        @click='handleFilterBySemester(item.id)'
+      >{{ item.title }}</a>
     </div>
 
     <div class="home__addbox" @click='handleOpenModal'>
@@ -16,9 +20,9 @@
       <span>Clique para adicionar bolsas de cursos do seu interesse</span>
     </div>
 
-    <div v-if='showCourseCard'>
+    <div v-show='showCourseCard'>
       <CourseCard
-        v-for='(item, index) in myFavoriteScholarships'
+        v-for='(item, index) in myFavoriteScholarshipsFiltered'
         :key='index'
         :value='index'
         :image='item.university.logo_url'
@@ -48,6 +52,29 @@ export default {
     Modal,
     CourseCard
   },
+  data: () => ({
+    myFavoriteScholarshipsFiltered: [],
+    semesters: [
+      {
+        id: 1,
+        title: 'Todos os semestres',
+        filter: 'all',
+        isActive: true
+      },
+      {
+        id: 2,
+        title: '2º semestre de 2019',
+        filter: '2019.2',
+        isActive: false
+      },
+      {
+        id: 3,
+        title: '1º semestre de 2020',
+        filter: '2020.1',
+        isActive: false
+      }
+    ],
+  }),
   computed: {
     myFavoriteScholarships() {
       return this.$store.state.favorite.scholarships;  
@@ -56,14 +83,22 @@ export default {
       return this.myFavoriteScholarships.length > 0;
     },
   },
+  watch: {
+    myFavoriteScholarships() {
+      this.myFavoriteScholarshipsFiltered = this.myFavoriteScholarships;
+    },
+  },
   methods: {
     handleOpenModal() {
       this.$store.dispatch('setModal', true);
     },
     handleClickExclude(value) {
-      this.myFavoriteScholarships.splice(value, 1);
+      const index = this.myFavoriteScholarships.findIndex((object) => object === this.myFavoriteScholarshipsFiltered[value]);
+      this.myFavoriteScholarships.splice(index, 1);
       this.$store.dispatch('setFavorite', this.myFavoriteScholarships);
       this.saveFavoriteOnLocalStorage();
+
+      this.resetOrderBySemester();
     },      
     saveFavoriteOnLocalStorage() {
       if (window.localStorage.getItem('@quero-bolsa')) {
@@ -73,13 +108,33 @@ export default {
       if (this.myFavoriteScholarships.length > 0) {
         window.localStorage.setItem('@quero-bolsa', JSON.stringify(this.myFavoriteScholarships));
       }
-    }  
+    },
+    handleFilterBySemester(id) {
+      this.myFavoriteScholarshipsFiltered = this.myFavoriteScholarships;
+
+      this.semesters.forEach((item) => {
+        if (item.id === id) item.isActive = true;
+        else item.isActive = false;
+      });
+
+      const index = this.semesters.findIndex((item) => item.id === id);
+      const filterActive = this.semesters[index].filter;
+      
+      if (filterActive === 'all') return;
+
+      this.myFavoriteScholarshipsFiltered = this.myFavoriteScholarships.filter((item) => item.enrollment_semester === filterActive);
+    },
+    resetOrderBySemester() {
+      this.semesters[0].isActive = true;
+      this.semesters[1].isActive = false;
+      this.semesters[2].isActive = false;
+    },
   },
   mounted() {
     const favoriteScholarships = window.localStorage.getItem('@quero-bolsa');
     if (favoriteScholarships) {
       this.$store.dispatch('setFavorite', JSON.parse(favoriteScholarships));
-    }
+    } 
   },
 }
 </script>
