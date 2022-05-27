@@ -7,14 +7,6 @@
     <p class="card__name">{{ universityName }}</p>
     <p class="card__course">{{ courseName }}</p>
     <Score :score='universityScore' />
-    <!-- <div class="card__stars">
-      <span class="card__score">{{ universityScore }}</span> 
-      <span><i class="fa-solid fa-star"></i></span>
-      <span><i class="fa-solid fa-star"></i></span>
-      <span><i class="fa-solid fa-star"></i></span>
-      <span><i class="fa-solid fa-star"></i></span>
-      <span><i class="fa-solid fa-star"></i></span>
-    </div> -->
 
     <div class="card__divisor" />
 
@@ -145,22 +137,6 @@ export default {
     margin-top: 0.5rem;
   }
 
-  &__stars {
-    font-weight: 700;
-    margin-top: 1rem;
-    display: flex;
-    align-items: center;
-
-    svg {
-      color: var(--yellow-primary);
-    }
-  }
-
-  &__score {
-    display: inline-block;
-    margin-right: 0.5rem;
-  }
-
   &__divisor {
     width: 100%;
     height: 2px;
@@ -257,6 +233,15 @@ export default {
       cursor: not-allowed;
       border-color: var(--black);
       background: #cacdce;
+    }
+  }
+}
+
+@media only screen and (min-width: 720px) {
+  .card {
+    &__cancel,
+    &__add {
+      padding: 1rem;
     }
   }
 }

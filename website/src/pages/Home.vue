@@ -21,26 +21,23 @@
       <span>Clique para adicionar bolsas de cursos do seu interesse</span>
     </div>
 
-    <div v-show='showCourseCard'>
-      <TransitionGroup> 
-        <CourseCard
-          v-for='(item, index) in myFavoriteScholarshipsFiltered'
-          :key='index'
-          :value='index'
-          :image='item.university.logo_url'
-          :universityName='item.university.name'
-          :universityScore='item.university.score'
-          :courseName='item.course.name'
-          :kind='item.course.kind'
-          :shift='item.course.shift'
-          :startDate='item.start_date'
-          :fullPrice='item.full_price'
-          :payment='item.price_with_discount'
-          :enabled='item.enabled'
-          @handleClickExclude='handleClickExclude'
-        />
-      </TransitionGroup>
-    </div>
+    <CourseCard
+      v-for='(item, index) in myFavoriteScholarshipsFiltered'
+      :key='index'
+      :value='index'
+      :image='item.university.logo_url'
+      :universityName='item.university.name'
+      :universityScore='item.university.score'
+      :courseName='item.course.name'
+      :kind='item.course.kind'
+      :shift='item.course.shift'
+      :startDate='item.start_date'
+      :fullPrice='item.full_price'
+      :payment='item.price_with_discount'
+      :enabled='item.enabled'
+      @handleClickExclude='handleClickExclude'
+      v-show='showCourseCard'
+    />
 
     <Modal />
   </section>
@@ -215,8 +212,17 @@ export default {
     max-width: 1240px;
     margin: 0 auto;
     padding: 0 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+
+    &__title,
+    &__text {
+      grid-column: 1 / -1;
+    }
 
     &__filter {
+      grid-column: 3 / -1;
       display: inline-block;
       margin-top: 2rem;
       
@@ -234,13 +240,16 @@ export default {
 
     &__addbox {
       padding: 11rem 2rem;
-      max-width: 22rem;
       cursor: pointer;
       transition: box-shadow 0.2s;
 
       &:hover {
         box-shadow: 4px 8px 12px 4px rgba(0, 0, 0, 0.2);
       }
+    }
+
+    &__cards {
+      
     }
   }
 }
