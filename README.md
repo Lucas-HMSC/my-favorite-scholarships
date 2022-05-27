@@ -17,3 +17,6 @@
 - Instale as dependências com `npm install` ou `yarn`
 - Inicie a aplicação com Docker executando o comando `npm run serve` ou `yarn serve`
 - Ou então inicie a aplicação sem o Docker executando o comando `npm run dev` ou `yarn dev`
+
+### Deploy
+- A aplicação pode ser conferida através desse [link](https://my-favorite-scholarships.vercel.app/)
