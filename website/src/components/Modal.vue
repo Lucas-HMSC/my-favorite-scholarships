@@ -302,4 +302,47 @@ export default {
     }
   }
 }
+
+@media only screen and (min-width: 720px) {
+  .modal {
+    &__close {
+      max-width: 40rem;
+      margin: 3rem auto 0 auto;
+      padding-right: 0;
+    }
+
+    &__content {
+      background: var(--white);
+      padding: 1rem 1rem 0 1rem;
+      max-width: 40rem;
+      margin: 0 auto 5rem auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+
+      h1 {
+        grid-column: 1 / -1;
+        margin-top: 1rem;
+      }
+
+      p {
+        grid-column: 1 / -1;
+        line-height: 1.5rem;
+      }
+
+      & > span {
+        grid-column: 1 / -1;
+      }
+    } 
+
+    &__result {
+      grid-column: 1 / -1;
+    }
+
+    &__buttons {
+      grid-column: 1 / -1;
+      justify-content: right;
+    }
+  }
+}
 </style>

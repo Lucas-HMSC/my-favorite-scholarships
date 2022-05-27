@@ -74,7 +74,7 @@ export default {
   }),
   methods: {
     handleSelectCourse() {
-      this.isChecked = true;
+      this.isChecked = !this.isChecked;
       this.$emit('handleSelectScholarship', this.value);
     },
   },
@@ -121,6 +121,49 @@ export default {
   &__payment {
     font-weight: 700;
     color: var(--green);
+  }
+}
+
+@media only screen and (min-width: 720px) {
+  .course {
+    &__label {
+      flex: 1;
+      height: 4rem;
+
+      div {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 
+          'left-top right-top'
+          'left-bottom right-bottom';
+      }
+    }
+
+    &__img {
+      width: 6rem;
+      max-height: 4rem;
+      object-fit: scale-down;
+    }
+
+    &__title {
+      grid-area: left-top;
+    }
+    
+    &__type {
+      grid-area: left-bottom;
+    }
+
+    &__percent {
+      margin-top: 0;
+      margin-left: auto;
+      grid-area: right-top;
+    }
+
+    &__payment {
+      margin-left: auto;
+      grid-area: right-bottom;
+    }
   }
 }
 </style>
