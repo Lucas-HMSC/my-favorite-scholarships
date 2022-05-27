@@ -236,6 +236,11 @@ export default {
       padding: 11rem 2rem;
       max-width: 22rem;
       cursor: pointer;
+      transition: box-shadow 0.2s;
+
+      &:hover {
+        box-shadow: 4px 8px 12px 4px rgba(0, 0, 0, 0.2);
+      }
     }
   }
 }
